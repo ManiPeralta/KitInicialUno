@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@using Umbraco.Web.Models
+@{
+    var ajustes = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("ajustesGenerales").FirstOrDefault();
+    var titulo = string.Empty;
+    var enlaces = ajustes.Value<IEnumerable<Link>>("menuPrincipal");
+    if (ajustes != null)
+    {
+        titulo = ajustes.Value<string>("nombreDelSitio");
+    }
+    var currentPage = Model.Name;
+
+    var tempLogotipo = ajustes.Value<IPublishedContent>("logotipo");
+    var logotipo = ajustes.Value<IPublishedContent>("logotipo");
+
+    var estilo = !string.IsNullOrEmpty(ajustes.Value<string>("estiloMenu").ToString()) ? ajustes.Value<string>("estiloMenu").ToString() : "000000";
+}
+
+<nav class="navbar navbar-expand-lg  @(estilo != null ? $"mp{estilo}"  : "")">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="@logotipo.Url()" alt="@logotipo.Name" /> </a>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                
+                @foreach (var page in enlaces)
+                {
+                    <li class="nav-item @(currentPage == page.Name ? "active" : "" ) ">
+                        <a class="nav-link" href="@page.Url">@page.Name <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@using Umbraco.Web.Models
+@{
+    var ajustes = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("ajustesGenerales").FirstOrDefault();
+
+    var nombreDelSitio = ajustes.Value<string>("nombreDelSitio");
+    var favicon = ajustes.Value<IPublishedContent>("favicon");
+
+}
+
+<meta name="description" content="">
+<title>@Model.Name @nombreDelSitio</title>
+<link href="@favicon.Url()" rel="icon" type="image/png">

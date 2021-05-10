@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@inherits UmbracoViewPage<Umbraco.Core.Models.Blocks.BlockListItem>
+
+@{
+    var contentModel = Model.Content as ContenidoRelacionado;
+    var settingsModel = Model.Settings as ContenidoRelacionadoAjustes;
+    var estilo = settingsModel.Estilo;
+
+    if (contentModel.Relacionados != null && contentModel.Relacionados.Any())
+    {
+        <div class=" py-5 @(estilo != null ? $"mp{estilo}"  : "")">
+            <div class="container">
+
+                <div class="row">
+                    @foreach (var item in contentModel.Relacionados)
+                    {
+                        var relacionados = (Pagina)item;
+                        if(relacionados != null && !string.IsNullOrEmpty(relacionados.Titulo))
+                        {
+                            <div class="col-md-4">
+                                <div class="card mb-4 box-shadow">
+                                    <img class="card-img-top" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="@relacionados.Miniatura.Url()" data-holder-rendered="true">
+                                    <div class="card-body">
+                                        <h3>@relacionados.Name</h3>
+                                        <p class="card-text">@relacionados.Extracto</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+
+                                            </div>
+                                            <a href="@relacionados.Url()" class="text-muted">Read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+}
