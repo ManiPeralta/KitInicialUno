@@ -24,3 +24,18 @@
 
 # Ignore the Models Builder models out of date flag
 **/App_Data/Models/ood.flag
+
+
+KitDeInicioDos/.vs
+KitDeInicioDos/packages
+KitDeInicioDos/*.user
+KitDeInicioDos/KitDeInicioDos/bin
+KitDeInicioDos/KitDeInicioDos/obj
+KitDeInicioDos/KitDeInicioDos/App_Data
+KitDeInicioDos/KitDeInicioDos/Umbraco
+KitDeInicioDos/KitDeInicioDos/Media/*
+!KitDeInicioDos/KitDeInicioDos/Media/.gitkeep
+!KitDeInicioDos/KitDeInicioDos/Media/Web.config
+KitDeInicioDos/KitDeInicioDos/logfiles/*
+!KitDeInicioDos/KitDeInicioDos/logfiles/.gitkeep
+KitDeInicioDos/KitDeInicioDos/AppSettingsSecrets.config
