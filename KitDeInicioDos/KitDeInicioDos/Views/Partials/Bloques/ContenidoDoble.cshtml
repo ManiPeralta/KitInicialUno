@@ -1,10 +1,11 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
-@inherits UmbracoViewPage<Umbraco.Core.Models.Blocks.BlockListItem>
+@inherits UmbracoViewPage<Umbraco.Core.Models.Blocks.BlockListItem<ContenidoDoble, ContenidoDobleAjustes>>
 
 @{
     var contentModel = Model.Content as ContenidoDoble;
     var settingsModel = Model.Settings as ContenidoDobleAjustes;
     var estilo = settingsModel.Estilo;
+
 }
 
 <section class="pb-5 pt-5 @(estilo != null ? $"mp{estilo}"  : "")">
@@ -13,12 +14,12 @@
             <div class="col-md-6 d-flex align-items-center @(settingsModel.OrdenReversada ? "order-md-2" : "")">
                 <div>
                     @if (contentModel.Texto.Count > 0)
-            {
-                foreach (var item in contentModel.Texto)
-                {
-                    var textoPrincipal = (TextoDelDoble)item.Content;
-                    if (textoPrincipal != null)
                     {
+                        foreach (var item in contentModel.Texto)
+                        {
+                            var textoPrincipal = (TextoDelDoble)item.Content;
+                            if (textoPrincipal != null)
+                            {
                                 <h2 class="featurette-heading">@textoPrincipal.Titulo</h2>
 
                                 if (!string.IsNullOrEmpty(textoPrincipal.TextoAformatear.ToString()))
@@ -26,7 +27,7 @@
                                     @Html.Raw(textoPrincipal.TextoAformatear.ToString())
 
                                 }
-    }
+                            }
 
                         }
                     }
@@ -35,12 +36,12 @@
             <div class="col-md-6">
                 @if (contentModel.Foto != null)
                 {
-        foreach (var item in contentModel.Foto)
-        {
-            var contenidoImagen = (FotoDelDoble)item.Content;
+                    foreach (var item in contentModel.Foto)
+                    {
+                        var contenidoImagen = (FotoDelDoble)item.Content;
 
-            if (contenidoImagen.Foto != null)
-            {
+                        if (contenidoImagen.Foto != null)
+                        {
                             <img class="featurette-image img-fluid mx-auto" src="@contenidoImagen.Foto.Url()" alt="@contenidoImagen.Foto.Name">
                         }
                     }

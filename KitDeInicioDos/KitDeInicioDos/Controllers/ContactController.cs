@@ -10,6 +10,7 @@ using Umbraco.Core.Logging;
 using kitDeInicioDos.ModelsView;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using Umbraco.Web.PublishedModels;
 
 namespace KitDeInicioDos.Controllers
 {
@@ -19,7 +20,7 @@ namespace KitDeInicioDos.Controllers
         public ActionResult DesplegardFormulario()
         {
             ContactModel vm = new ContactModel();
-            var siteSettings = Umbraco.ContentAtRoot().DescendantsOrSelfOfType("ajustesGenerales").FirstOrDefault();
+            AjustesGenerales siteSettings = (AjustesGenerales)Umbraco.ContentAtRoot().DescendantsOrSelfOfType("ajustesGenerales").FirstOrDefault();
             if (siteSettings != null)
             {
                 var siteKey = siteSettings.Value<string>("recaptchaSiteKey");
